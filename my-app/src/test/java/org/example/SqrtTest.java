@@ -32,20 +32,20 @@ public class SqrtTest {
 
     @Test
     void test_good3() {
-        var sqrt = new Sqrt(1);
-        assertTrue(sqrt.good(16, 64));
+        var sqrt = new Sqrt(0);
+        assertTrue(sqrt.good(2, 4));
     }
 
     @Test
     void test_imp1() {
-        var sqrt = new Sqrt(1);
-        assertEquals(sqrt.improve(5, 8), 6.5);
+        var sqrt = new Sqrt(0);
+        assertEquals(sqrt.improve(1, 4), 2.5);
     }
 
     @Test
     void test_impr2() {
         var sqrt = new Sqrt(1);
-        assertEquals(sqrt.improve(9, 15), 12);
+        assertEquals(sqrt.improve(9, 15), 5.33333333);
     }
 
     @Test
