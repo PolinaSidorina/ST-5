@@ -45,7 +45,7 @@ public class SqrtTest {
     @Test
     void test_impr2() {
         var sqrt = new Sqrt(1);
-        assertEquals(sqrt.improve(9, 15), 5.33333333);
+        assertEquals(sqrt.improve(9, 15), 5.333333333333333);
     }
 
     @Test
