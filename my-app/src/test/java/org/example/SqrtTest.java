@@ -1,98 +1,116 @@
 package org.example;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.Test;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 public class SqrtTest {
 
+    // Тесты для метода average()
     @Test
-    void test_av1() {
+    void testAverage_PositiveNumbers() {
         var sqrt = new Sqrt(1);
-        assertEquals(sqrt.average(5, 10), 7.5);
+        assertEquals(7.5, sqrt.average(5, 10));
     }
 
     @Test
-    void test_av2() {
+    void testAverage_NegativeNumbers() {
         var sqrt = new Sqrt(1);
-        assertEquals(sqrt.average(3, 9), 6);
+        assertEquals(-2.5, sqrt.average(-5, 0));
     }
 
     @Test
-    void test_good1() {
+    void testAverage_Zero() {
         var sqrt = new Sqrt(1);
-        assertFalse(sqrt.good(7, 2));
+        assertEquals(0, sqrt.average(0, 0));
     }
 
+    // Тесты для метода good()
     @Test
-    void test_good2() {
-        var sqrt = new Sqrt(1);
-        assertTrue(sqrt.good(0, 0));
-    }
-
-    @Test
-    void test_good3() {
+    void testGood_TrueWhenExact() {
         var sqrt = new Sqrt(0);
         assertTrue(sqrt.good(2, 4));
     }
 
     @Test
-    void test_imp1() {
+    void testGood_FalseWhenNotClose() {
+        var sqrt = new Sqrt(1);
+        assertFalse(sqrt.good(7, 2));
+    }
+
+    @Test
+    void testGood_TrueWhenWithinDelta() {
+        var sqrt = new Sqrt(1);
+        assertTrue(sqrt.good(1.00001, 1.00002));
+    }
+
+    // Тесты для метода improve()
+    @Test
+    void testImprove_PositiveNumbers() {
         var sqrt = new Sqrt(0);
-        assertEquals(sqrt.improve(1, 4), 2.5);
+        assertEquals(2.5, sqrt.improve(1, 4));
     }
 
     @Test
-    void test_impr2() {
+    void testImprove_One() {
         var sqrt = new Sqrt(1);
-        assertEquals(sqrt.improve(9, 15), 5.333333333333333);
+        assertEquals(1.0, sqrt.improve(1, 1));
     }
 
     @Test
-    void test_iter1() {
+    void testImprove_LargeNumbers() {
         var sqrt = new Sqrt(1);
-        assertEquals(sqrt.iter(1, 1), 1);
+        assertEquals(12500.0, sqrt.improve(20000, 100000000));
     }
 
+    // Тесты для метода iter()
     @Test
-    void test_iter2() {
-        var sqrt = new Sqrt(1);
-        assertEquals(sqrt.iter(1, 169), 13, sqrt.delta);
-    }
-
-    @Test
-    void test_iter3() {
+    void testIter_ExactSquare() {
         var sqrt = new Sqrt(16);
-        assertEquals(sqrt.iter(4, 16), 4, sqrt.delta);
+        assertEquals(4, sqrt.iter(4, 16), sqrt.delta);
     }
 
     @Test
-    void test_iter4() {
+    void testIter_ConvergesToRoot() {
         var sqrt = new Sqrt(25);
-        assertEquals(sqrt.iter(5, 25), 5, sqrt.delta);
+        assertEquals(5, sqrt.iter(1, 25), sqrt.delta);
     }
 
     @Test
-    void test_calc1() {
+    void testIter_AlreadyGood() {
         var sqrt = new Sqrt(1);
-        assertEquals(sqrt.calc(), 1, sqrt.delta);
+        assertEquals(1, sqrt.iter(1, 1));
+    }
+
+    // Тесты для метода calc()
+    @Test
+    void testCalc_PerfectSquare() {
+        var sqrt = new Sqrt(9);
+        assertEquals(3, sqrt.calc(), sqrt.delta);
     }
 
     @Test
-    void test_calc2() {
-        var sqrt = new Sqrt(25);
-        assertEquals(sqrt.calc(), 5, sqrt.delta);
-    }
-
-    @Test
-    void test_calc3() {
-        var sqrt = new Sqrt(100);
-        assertEquals(sqrt.calc(), 10, sqrt.delta);
-    }
-
-    @Test
-    void test_calc4() {
+    void testCalc_NonPerfectSquare() {
         var sqrt = new Sqrt(2);
-        assertEquals(sqrt.calc(), Math.sqrt(2), sqrt.delta);
+        assertEquals(Math.sqrt(2), sqrt.calc(), sqrt.delta);
+    }
+
+    @Test
+    void testCalc_Zero() {
+        var sqrt = new Sqrt(0);
+        assertEquals(0, sqrt.calc(), sqrt.delta);
+    }
+
+    @Test
+    void testCalc_One() {
+        var sqrt = new Sqrt(1);
+        assertEquals(1, sqrt.calc(), sqrt.delta);
+    }
+
+    @Test
+    void testCalc_LargeNumber() {
+        var sqrt = new Sqrt(1000000);
+        assertEquals(1000, sqrt.calc(), sqrt.delta);
     }
 }

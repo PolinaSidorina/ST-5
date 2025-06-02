@@ -15,7 +15,7 @@ public class Sqrt
         return Math.abs(guess*guess-x)<delta;
     }
     public double improve(double guess,double x) {
-        return average(guess,x/guess);
+        return x == 0 ? 0 : average(guess, x / guess);
     }
     public double iter(double guess, double x) {
         if(good(guess,x))
@@ -24,6 +24,7 @@ public class Sqrt
             return iter(improve(guess,x),x);
     }
     public double calc() {
+        if (arg == 0) return 0;
         return iter(1.0,arg);
     }
 }
